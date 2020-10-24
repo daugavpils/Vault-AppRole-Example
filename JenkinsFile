@@ -1,6 +1,6 @@
 import groovy.json.JsonSlurper
 def roleID
-node('slave-ansible') {
+node('any') {
    stage('Clone Source Code') {
       // Get source code from a github repository
       git (
