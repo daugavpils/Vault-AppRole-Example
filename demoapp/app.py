@@ -12,7 +12,7 @@ load_dotenv(override=True)
 load_dotenv(dotenv_path)
 roleID = os.getenv("RoleID")
 wsid = os.getenv("WSID")
-url = 'http://172.20.20.10:8200/v1/sys/wrapping/unwrap'
+url = 'http://localhost:8200/v1/sys/wrapping/unwrap'
 headers = {
     'X-Vault-Token': wsid
 }
@@ -24,14 +24,14 @@ print("Secret ID is:" +sid)
 @app.route("/")
 def hello():
 
-    url = 'http://172.20.20.10:8200/v1/auth/approle/login'
+    url = 'http://localhost:8200/v1/auth/approle/login'
     data = {'role_id': roleID, 'secret_id': sid}
     response2 = requests.post(url, data=json.dumps(data).encode("utf-8"))
     resp_dict2 = response2.json()
     token=resp_dict2['auth']['client_token']
     print("Token is:" +token)
 
-    url = 'http://172.20.20.10:8200/v1/GDL/Demo/Hello'
+    url = 'http://localhost:8200/v1/GDL/Demo/Hello'
     headers = {
         'X-Vault-Token': token
     }
@@ -44,7 +44,7 @@ def hello():
 
 #@app.route("/login")
 #def login():
-#    url = 'http://172.20.20.10:8200/v1/auth/approle/login'
+#    url = 'http://localhost:8200/v1/auth/approle/login'
 #    data = {
 #        'role_id': roleID,
 #        'secret_id': sid
@@ -56,7 +56,7 @@ def hello():
 #
 #@app.route("/secret")
 #def secret():
-#    url = 'http://172.20.20.10:8200/v1/GDL/Demo/Hello'
+#    url = 'http://localhost:8200/v1/GDL/Demo/Hello'
 #    headers = {
 #        'X-Vault-Token': token
 #    }
