@@ -59,7 +59,7 @@
 
   - name: install modules in a virtualenv
     pip:
-      requirements: /home/{{ ansible_ssh_user }}/{{ app_name }}/requirements.txt
+      requirements: /home/{{ ansible_ssh_user }}/{{ app_name }}/{{ app_name }}/requirements.txt
       virtualenv: /home/{{ ansible_ssh_user }}/{{ app_name }}/venv
 
   - name: ensure gunicorn daemon is started
