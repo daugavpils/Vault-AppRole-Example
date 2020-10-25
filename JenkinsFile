@@ -8,9 +8,8 @@ environment {
 
 node('master') {
     stage('test') {
-      steps {
+      
         echo "TOKEN_SECRET_ID=${env.TOKEN_SECRET_ID}"
-      }
 
     } 
 }
