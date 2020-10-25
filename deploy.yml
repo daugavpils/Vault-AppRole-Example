@@ -63,7 +63,7 @@
       virtualenv: /home/{{ ansible_ssh_user }}/{{ app_name }}/venv
 
   - name: ensure gunicorn daemon is started
-    command: /home/{{ ansible_ssh_user }}/{{ app_name }}/venv/bin/gunicorn --bind unix:/home//home/{{ ansible_ssh_user }}/{{ app_name }}/nginx_gunicorn.sock wsgi:app -p {{ app_name }}.pid -D 
+    command: /home/{{ ansible_ssh_user }}/{{ app_name }}/venv/bin/gunicorn --bind unix:/home/{{ ansible_ssh_user }}/{{ app_name }}/nginx_gunicorn.sock wsgi:app -p {{ app_name }}.pid -D 
     args:
       chdir: /home/{{ ansible_ssh_user }}/{{ app_name }}
 
