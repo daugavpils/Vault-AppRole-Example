@@ -65,7 +65,7 @@
   - name: ensure gunicorn daemon is started
     command: /home/jenkins/demoapp/venv/bin/gunicorn --bind unix:/home/jenkins/demoapp/nginx_gunicorn.sock wsgi:app -D
     args:
-      chdir: /home/{{ ansible_ssh_user }}/{{ app_name }}
+      chdir: /home/{{ ansible_ssh_user }}/{{ app_name }}/{{ app_name }}
     become: yes
 
   - name: template nginx site config
