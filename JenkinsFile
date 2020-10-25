@@ -8,11 +8,11 @@ environment {
 
 node('master') {
     stage('test') {
-      sh "echo  'SecretID'"
-      sh "echo ${env.TOKEN_SECRET_ID}"
-      sh "echo 'RoleID'"
-      sh "echo ${env.TOKEN_ROLE_ID}"
-    }
+      steps {
+        echo "TOKEN_SECRET_ID=${env.TOKEN_SECRET_ID}"
+      }
+
+    } 
 }
 
 // node('master') {
