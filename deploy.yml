@@ -21,8 +21,8 @@
 
   - name: copy repo
     copy:
-      src: '/home/sergei/code/Vault-AppRole-Example/demoapp'
-      dest: /home/{{ ansible_ssh_user }}/
+      src: '/home/sergei/code/Vault-AppRole-Example'
+      dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
 
   - name: Set RoleID as OS environment variable
     become: yes
