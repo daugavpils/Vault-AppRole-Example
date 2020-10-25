@@ -11,7 +11,7 @@ node('master') {
       sh "echo  'SecretID'"
       sh "echo ${env.TOKEN_SECRET_ID}"
       sh "echo 'RoleID'"
-      sh "echo ${TOKEN_ROLE_ID}"
+      sh "echo ${env.TOKEN_ROLE_ID}"
     }
 }
 
