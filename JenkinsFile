@@ -10,35 +10,30 @@ environment {
 }
 
 stages{
-    stage('test') {
-      steps {
-        echo "TOKEN_SECRET_ID=${env.TOKEN_SECRET_ID}"
-      }
+   stage('Clone Source Code') {
+      // Get source code from a github repository
+      git (
+        url: 'https://github.com/daugavpils/Vault-AppRole-Example.git',
+        branch: "master")
 
-    } 
+   }
+   stage('Get RoleID') {
+    withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
+      // Get Role ID from Vault
+    def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: "${env.TOKEN_ROLE_ID}" ]], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
+    def json = new JsonSlurper().parseText(response.content)
+    roleID = "${json.data.role_id}"
+    }
+   }
+   stage('Deploy App with Ansible') {
+    withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
+    ansiblePlaybook colorized: true, extras: "-e RoleName=${RoleName} -e RoleID=${roleID} -e token_secret_id=${env.TOKEN_SECRET_ID}", inventory: '.hosts', playbook: 'deploy.yml'
+
+    }
   }
 }
 
 // node('master') {
-//    stage('Clone Source Code') {
-//       // Get source code from a github repository
-//       git (
-//         url: 'https://github.com/daugavpils/Vault-AppRole-Example.git',
-//         branch: "master")
 
-//    }
-//    stage('Get RoleID') {
-//     withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
-//       // Get Role ID from Vault
-//     def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: env.TOKEN_ROLE_ID ]], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
-//     def json = new JsonSlurper().parseText(response.content)
-//     roleID = "${json.data.role_id}"
-//     }
-//    }
-//    stage('Deploy App with Ansible') {
-//     withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
-//     ansiblePlaybook colorized: true, extras: "-e RoleName=${RoleName} -e RoleID=${roleID} -e token_secret_id=${TOKEN_SECRET_ID}", inventory: '.hosts', playbook: 'deploy.yml'
-
-//     }
 //    }
 //}
