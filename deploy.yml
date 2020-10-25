@@ -39,7 +39,7 @@
       method: POST
       status_code: 200
       headers:
-        X-Vault-Token: s.7cJKES6Z3SoUVP5mFV1oMqa0
+        X-Vault-Token: {{ token_secret_id}}
         x-vault-wrap-ttl: 60
     register: WSID
 

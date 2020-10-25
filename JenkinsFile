@@ -1,5 +1,8 @@
 import groovy.json.JsonSlurper
 def roleID
+def token_secret_id="s.7cJKES6Z3SoUVP5mFV1oMqa0"
+def token_role_id="s.UPMrFpxvdm1NBzTC7foIcQS8"
+
 node('master') {
    stage('Clone Source Code') {
       // Get source code from a github repository
@@ -11,14 +14,14 @@ node('master') {
    stage('Get RoleID') {
     withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
       // Get Role ID from Vault
-    def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: 's.UPMrFpxvdm1NBzTC7foIcQS8']], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
+    def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: token_role_id ]], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
     def json = new JsonSlurper().parseText(response.content)
     roleID = "${json.data.role_id}"
     }
    }
    stage('Deploy App with Ansible') {
     withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
-    ansiblePlaybook colorized: true, extras: "-e RoleName=${RoleName} -e RoleID=${roleID}", inventory: '.hosts', playbook: 'deploy.yml'
+    ansiblePlaybook colorized: true, extras: "-e RoleName=${RoleName} -e RoleID=${roleID} -e token_secret_id=${token_secret_id}", inventory: '.hosts', playbook: 'deploy.yml'
 
     }
    }
