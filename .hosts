@@ -5,6 +5,6 @@ localhost
 
 [webservers:vars]
 # Local variables for Ansible playbooks
-ansible_ssh_user=sergei
+ansible_ssh_user=jenkins
 github_user=daugavpils
 app_name=demoapp
