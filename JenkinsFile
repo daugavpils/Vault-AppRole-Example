@@ -1,15 +1,15 @@
 import groovy.json.JsonSlurper
 def roleID
 
-environment {
-  TOKEN_SECRET_ID = 's.7cJKES6Z3SoUVP5mFV1oMqa0'
-  TOKEN_ROLE_ID   = 's.UPMrFpxvdm1NBzTC7foIcQS8'
-}
+
+def TOKEN_SECRET_ID = 's.7cJKES6Z3SoUVP5mFV1oMqa0'
+def TOKEN_ROLE_ID   = 's.UPMrFpxvdm1NBzTC7foIcQS8'
+
 
 node('master') {
     stage('test') {
       
-        echo "TOKEN_SECRET_ID=${env.TOKEN_SECRET_ID}"
+        echo "TOKEN_SECRET_ID=${TOKEN_SECRET_ID}"
 
     } 
 }
