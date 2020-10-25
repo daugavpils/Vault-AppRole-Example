@@ -17,7 +17,7 @@ node('master') {
    stage('Get RoleID') {
     withCredentials([string(credentialsId: 'appName', variable: 'RoleName')]) {
       // Get Role ID from Vault
-    def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: ${TOKEN_ROLE_ID} ]], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
+    def response = httpRequest customHeaders: [[name: 'X-Vault-Token', value: TOKEN_ROLE_ID ]], url: "http://localhost:8200/v1/auth/approle/role/${RoleName}/role-id"
     def json = new JsonSlurper().parseText(response.content)
     roleID = "${json.data.role_id}"
     }
