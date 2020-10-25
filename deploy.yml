@@ -21,7 +21,7 @@
 
   - name: copy repo
     copy:
-      src: '/home/jenkins/workspace/appRole_Demo_pipe/demoapp/'
+      src: '/home/sergei/code/Vault-AppRole-Example'
       dest: /home/{{ ansible_ssh_user }}/{{ app_name }}
 
   - name: Set RoleID as OS environment variable
@@ -35,11 +35,11 @@
   - name: Get Wrapped Secret ID from Vault
     become: yes
     uri:
-      url: http://172.20.20.10:8200/v1/auth/approle/role/{{RoleName}}/secret-id
+      url: http://localhost:8200/v1/auth/approle/role/{{RoleName}}/secret-id
       method: POST
       status_code: 200
       headers:
-        X-Vault-Token: 6afd663d-375c-a761-a419-fab0bff26ef9
+        X-Vault-Token: s.7cJKES6Z3SoUVP5mFV1oMqa0
         x-vault-wrap-ttl: 60
     register: WSID
 
