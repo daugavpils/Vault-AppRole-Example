@@ -2,8 +2,8 @@ import groovy.json.JsonSlurper
 def roleID
 
 
-def TOKEN_SECRET_ID = 's.7cJKES6Z3SoUVP5mFV1oMqa0'
-def TOKEN_ROLE_ID   = 's.UPMrFpxvdm1NBzTC7foIcQS8'
+def TOKEN_SECRET_ID = 's.cctHbald1QK5afk0SW5utBAl'
+def TOKEN_ROLE_ID   = 's.a7dX5vvooZJMucxpvqgukAWR'
 
 
 // node('master') {
